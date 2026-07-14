@@ -8,10 +8,30 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
+  <script>
+    document.documentElement.setAttribute(
+      "data-theme",
+      localStorage.getItem("theme") || "dark"
+    );
+  </script>
   <script src="./script.js" defer></script>
 </head>
 
 <body>
+  <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+    <svg class="icon-sun" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.4em"
+      width="1.4em" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2v-2H2v2zm18 0h2v-2h-2v2zM11 2h2v2h-2V2zm0 18h2v2h-2v-2zM4.22 4.22l1.42 1.42-1.42 1.42-1.42-1.42 1.42-1.42zm14.14 14.14l1.42 1.42-1.42 1.42-1.42-1.42 1.42-1.42zM4.22 19.78l1.42-1.42 1.42 1.42-1.42 1.42-1.42-1.42zM19.78 4.22l-1.42 1.42-1.42-1.42 1.42-1.42 1.42 1.42z">
+      </path>
+    </svg>
+    <svg class="icon-moon" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.4em"
+      width="1.4em" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z">
+      </path>
+    </svg>
+  </button>
   <div class="card">
     <div class="search">
       <input type="text" class="search-bar" placeholder="Search">

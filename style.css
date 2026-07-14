@@ -1,3 +1,20 @@
+:root,
+[data-theme="dark"] {
+  --bg-color: #222;
+  --card-bg: #000000d0;
+  --text-color: #ffffff;
+  --surface-color: #7c7c7c2b;
+  --surface-hover: #7c7c7c6b;
+}
+
+[data-theme="light"] {
+  --bg-color: #dce6f2;
+  --card-bg: #ffffffee;
+  --text-color: #1a1a2e;
+  --surface-color: rgba(0, 0, 0, 0.08);
+  --surface-hover: rgba(0, 0, 0, 0.15);
+}
+
 body {
   display: flex;
   justify-content: center;
@@ -5,19 +22,43 @@ body {
   height: 100vh;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
-  background: #222;
+  background: var(--bg-color);
   background-image: url('https://source.unsplash.com/1600x900/?landscape');
+  background-size: cover;
+  background-position: center;
+  color: var(--text-color);
   font-size: 120%;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .card {
-  background: #000000d0;
-  color: white;
+  background: var(--card-bg);
+  color: var(--text-color);
   padding: 2em;
   border-radius: 30px;
   width: 100%;
   max-width: 420px;
   margin: 1em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1.25em;
+  right: 1.25em;
+  z-index: 10;
+}
+
+.theme-toggle .icon-moon {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle .icon-sun {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle .icon-moon {
+  display: block;
 }
 
 .search {
@@ -33,10 +74,10 @@ button {
   height: 44px;
   width: 44px;
   outline: none;
-  background: #7c7c7c2b;
-  color: white;
+  background: var(--surface-color);
+  color: var(--text-color);
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.3s ease;
 }
 
 input.search-bar {
@@ -44,15 +85,21 @@ input.search-bar {
   outline: none;
   padding: 0.4em 1em;
   border-radius: 24px;
-  background: #7c7c7c2b;
-  color: white;
+  background: var(--surface-color);
+  color: var(--text-color);
   font-family: inherit;
   font-size: 105%;
   width: calc(100% - 100px);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+input.search-bar::placeholder {
+  color: var(--text-color);
+  opacity: 0.6;
 }
 
 button:hover {
-  background: #7c7c7c6b;
+  background: var(--surface-hover);
 }
 
 h1.temp {
@@ -79,7 +126,7 @@ h1.temp {
 .weather.loading:after {
   visibility: visible;
   content: "Loading...";
-  color: white;
+  color: var(--text-color);
   position: absolute;
   top: 0;
   left: 20px;
