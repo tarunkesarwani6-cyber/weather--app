@@ -1,20 +1,36 @@
 let weather = {
-  apiKey: "API KEY GOES HERE",
+  apiKey: "2b3356f8169aa77f26e91c4103f8ad07",
   fetchWeather: function (city) {
+    city = city.trim();
+    if (!city) return;
+
+    document.querySelector(".weather").classList.add("loading");
+
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?q=" +
-        city +
+        encodeURIComponent(city) +
         "&units=metric&appid=" +
         this.apiKey
     )
-      .then((response) => {
+      .then((response) =>
+        response.json().then((data) => ({ response, data }))
+      )
+      .then(({ response, data }) => {
         if (!response.ok) {
-          alert("No weather found.");
-          throw new Error("No weather found.");
+          if (response.status === 401) {
+            alert(
+              "Invalid API key. If you just created it, wait up to 2 hours for activation."
+            );
+          } else {
+            alert("No weather found.");
+          }
+          throw new Error(data.message || "Request failed");
         }
-        return response.json();
+        this.displayWeather(data);
       })
-      .then((data) => this.displayWeather(data));
+      .catch(() => {
+        document.querySelector(".weather").classList.remove("loading");
+      });
   },
   displayWeather: function (data) {
     const { name } = data;
@@ -52,3 +68,15 @@ document
   });
 
 weather.fetchWeather("Denver");
+
+const themeToggle = document.querySelector(".theme-toggle");
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
+}
+
+themeToggle.addEventListener("click", function () {
+  const currentTheme = document.documentElement.getAttribute("data-theme");
+  applyTheme(currentTheme === "dark" ? "light" : "dark");
+});
